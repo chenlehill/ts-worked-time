@@ -52,3 +52,10 @@ A frozen object containing the default `roundToMinutes`, `roundMode`, and `overt
 ## Errors
 
 `computeWorkedTime` throws `TypeError` for malformed inputs (non-array shifts, non-Date/string timestamps, bad option values) and `RangeError` for logically impossible data (a shift ending before it starts, a break outside its shift, or more break time than shift time).
+
+## Performance
+
+The window keeps a bounded buffer, so `push` is constant time and memory does not
+grow with the length of the stream. `peak` and `trough` are linear in the window
+size, which is the trade that keeps `push` cheap.
+
